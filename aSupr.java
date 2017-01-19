@@ -5,7 +5,20 @@ float colision(Car r, float Dinit, boolean acc) {
     if (!acc) {
       return -1;
     }
-    if (r.getSpeed()<MaxSpeed) {
+    if (r.isBreaking()) {
+      float dbreak=speed*speed/(desc*2);
+      if (dbreak<=Dinit) {
+         return 0.00000001f;
+      }
+      float delta = (r.getSpeed()*r.getSpeed() - 2*desc*(Dinit-(getSpeed()*getSpeed())/(desc*2)));
+      float t = (-r.getSpeed()+Math.sqrt(delta))/desc;
+      if (t<=0) {
+        return -1;
+        
+      }else {
+        return t;
+      }
+    }else {
       float dbreak=speed*speed/(desc*2);
       if (dbreak<=Dinit) {
          return 0.00000001f;
@@ -13,9 +26,9 @@ float colision(Car r, float Dinit, boolean acc) {
       
      
       float tvMax = (MaxSpeed - speed)/ acc;
-
       float delta = r.getSpeed()*r.getSpeed() - 2*acc*(Dinit-(getSpeed()*getSpeed())/(desc*2)));
       float t = (-r.getSpeed()+Math.sqrt(delta))/acc;
+      
       if (t<=tvMax) {
         return t;
       } else {
@@ -23,15 +36,8 @@ float colision(Car r, float Dinit, boolean acc) {
         return (speed*speed/(2*desc)-dA)/MaxSpeed;
 
       }
-    }
-    else if (r.isBreaking()) {
-      float dbreak=speed*speed/(desc*2);
-      if (dbreak<=Dinit) {
-         return 0.00000001f;
-      }
-      float delta = (r.getSpeed()*r.getSpeed() - 2*desc*(Dinit-(getSpeed()*getSpeed())/(desc*2)));
       
-    }else {
+      
     }
     
     
@@ -41,6 +47,7 @@ float colision(Car r, float Dinit, boolean acc) {
       return -1;
     }
     if (r.getSpeed()<MaxSpeed) {
+      
     } else if (r.isBreaking()) {
     }else {
     }
