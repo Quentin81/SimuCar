@@ -22,10 +22,17 @@ float colision(Car r, float Dinit, boolean acc) {
       float t = (-r.getSpeed()+Math.sqrt(delta))/acc;
       
       if (t<=tvMax) {
+        if (t<=1.0f) {
+          return 1.0f
+        }
         return t;
       } else {
         float dA = tvMax*tvMax*acc/2+r.getSpeed()*tvMax+Dinit-MaxSpeed*tvMax;
-        return (speed*speed/(2*desc)-dA)/MaxSpeed;
+        t =(speed*speed/(2*desc)-dA)/MaxSpeed;
+        if (t<=1.0f) {
+          return 1.0f
+        }
+        return t;
 
       }
       
