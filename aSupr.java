@@ -57,6 +57,7 @@ float colision(Car r, float Dinit, boolean acc) {
       
     
      
+      
      
       
     }else {
