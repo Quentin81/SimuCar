@@ -5,19 +5,11 @@ float colision(Car r, float Dinit, boolean acc) {
     if (!acc) {
       return -1;
     }
-    if (r.isBreaking()) {
-      float dbreak=speed*speed/(desc*2);
-      if (dbreak<=Dinit) {
-         return 0.00000001f;
-      }
-      float delta = (r.getSpeed()*r.getSpeed() - 2*desc*(Dinit-(getSpeed()*getSpeed())/(desc*2)));
-      float t = (-r.getSpeed()+Math.sqrt(delta))/desc;
-      if (t<=0) {
-        return -1;
-        
-      }else {
-        return t;
-      }
+    
+    if (r.isBreaking() || r.estalarrer()) {
+     
+      return -1;
+      
     }else {
       float dbreak=speed*speed/(desc*2);
       if (dbreak<=Dinit) {
@@ -46,19 +38,37 @@ float colision(Car r, float Dinit, boolean acc) {
     if (acc) {
       return -1;
     }
-    if (r.getSpeed()<MaxSpeed) {
+    if (r.isBreaking() || r.estalarrer()) {
+      return aux(r,Dinit);
+    } else if (r.getSpeed()<MaxSpeed) {
       
-    } else if (r.isBreaking()) {
+    
     }else {
     }
     
   }else {
-    if (r.getSpeed()<MaxSpeed) {
-    } else if (r.isBreaking()) {
+    if (acc) {
+      return -1;
+    }
+     if (r.isBreaking() || r.estalarrer()) {
+        return aux(r,Dinit);
+     }
+    else if (r.getSpeed()<MaxSpeed) {
+      
+    
+     
+     
+      
     }else {
     }
     
   }
 }
-
-Plot3D[(x+Sqrt[(x*x-2*2.77*(30-y*y/5))])/(2*30),{x,0,13.8},{y,0,13.8}]
+float aux1(Car r, float Dinit) {
+   float acc= 100.0f/(1.4f*36.0f);
+   float desc= 100.0f/(36.0f);
+   float dFrB=r.getSpeed()*r.getSpeed()/(2*desc);
+   float dFrA=getSpeed()*getSpeed()/(2*desc);
+   return (Dinit+dFrB-dFrA)/getSpeed(); // apres voir avec plus 1
+   
+}
