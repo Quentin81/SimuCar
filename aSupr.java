@@ -1,6 +1,11 @@
 float colision(Car r, float Dinit, boolean acc) {
   float acc= 100.0f/(1.4f*36.0f);
   float desc= 100.0f/(36.0f);
+  
+  
+  // Cas où on freine  et la voiture devant accélère
+  
+  
   if (isBreaking) {
     if (!acc) {
       return -1;
@@ -63,15 +68,41 @@ float colision(Car r, float Dinit, boolean acc) {
     else if (r.getSpeed()<MaxSpeed) {
       
     
-     
-      
-     
-      
-    }else {
+          }else {
     }
     
   }
 }
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////     
+      
+     // Cas où la voiture de devant accélère et nous aussi.
+      
+    float frein(Car r, float Dinit){
+      float acc= 100.0f/(1.4f*36.0f);
+      float desc= 100.0f/(36.0f);
+      float TVmaxA = (MaxSpeed - getSpeed)/ acc;
+      float TVmaxB = (MaxSpeed - r.getSpeed)/ acc;
+      float XVmaxA = TVmaxA*(MaxSpeed+getSpeed)/2;
+      float XVmaxB = TVmaxA*(MaxSpeed+r.getSpeed)/2;
+      
+        if(r.getSpeed()>=getSpeed()){
+          return 100000;    // En gros la voiture de devant va plus vite donc on accélère jusqu'à atteindre la vitesse max et attendre un pochain évènement.
+        }
+        else{
+          float Dfinal = XVmaxB - XVmaxA;
+          if(Dfinal > 35){
+            return 1000000;   // Pareil on ne fait rien
+          }
+          else {
+            return 0.000001;
+          }
+        }
+      
+     //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+// cas ou la voiture de devant freine 
+
 float aux1(Car r, float Dinit) {
    float acc= 100.0f/(1.4f*36.0f);
    float desc= 100.0f/(36.0f);
